@@ -1,104 +1,310 @@
-/* CSS Variables for Theme Management */
+/* Light Theme Variables - using requested palette */
 :root {
-  /* Light theme colors */
-  --bg-primary: #ffffff;
-  --bg-secondary: #f8f9fa;
-  --text-primary: #282c34;
-  --text-secondary: #61dafb;
-  --border-color: #e9ecef;
-  --button-bg: #007bff;
-  --button-text: #ffffff;
+  --color-primary: #1976d2;
+  --color-secondary: #455a64;
+  --color-accent: #ffab00;
+
+  --bg: #f6f8fb;
+  --surface: #ffffff;
+  --text: #263238;
+  --text-muted: #607d8b;
+  --border: #e6eaf0;
+  --shadow: 0 6px 20px rgba(0,0,0,0.06);
+
+  --radius: 14px;
+  --radius-sm: 10px;
+
+  --space-1: 6px;
+  --space-2: 10px;
+  --space-3: 14px;
+  --space-4: 18px;
+  --space-5: 24px;
+
+  --transition: 220ms ease;
 }
 
-[data-theme="dark"] {
-  /* Dark theme colors */
-  --bg-primary: #1a1a1a;
-  --bg-secondary: #282c34;
-  --text-primary: #ffffff;
-  --text-secondary: #61dafb;
-  --border-color: #404040;
-  --button-bg: #0056b3;
-  --button-text: #ffffff;
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
-.App {
-  text-align: center;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-  min-height: 100vh;
-  transition: background-color 0.3s ease, color 0.3s ease;
+.container {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 var(--space-5);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: var(--bg-secondary);
+.app-root {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: var(--text-primary);
-  transition: background-color 0.3s ease;
-  position: relative;
 }
 
-.App-link {
-  color: var(--text-secondary);
-  transition: color 0.3s ease;
+/* Header */
+.app-header {
+  background: linear-gradient(135deg, rgba(25,118,210,0.08), rgba(69,90,100,0.08));
+  border-bottom: 1px solid var(--border);
+  padding: 46px 0 32px;
 }
 
-.theme-toggle {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background-color: var(--button-bg);
-  color: var(--button-text);
-  border: none;
-  border-radius: 8px;
-  padding: 10px 20px;
+.title {
+  margin: 0 0 6px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--color-secondary);
+  font-size: clamp(26px, 3.2vw, 36px);
+}
+
+.subtitle {
+  margin: 0;
+  color: var(--text-muted);
   font-size: 14px;
-  font-weight: 600;
+}
+
+/* Panel */
+.todo-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-top: -22px;
+  box-shadow: var(--shadow);
+  padding: var(--space-5);
+}
+
+/* Form */
+.todo-form {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.todo-input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  outline: none;
+  font-size: 15px;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+.todo-input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(25,118,210,0.15);
+}
+
+/* Buttons */
+.btn {
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 12px 18px;
+  font-weight: 700;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform var(--transition), box-shadow var(--transition), opacity var(--transition), background var(--transition);
+  box-shadow: var(--shadow);
+}
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
 }
 
-.theme-toggle:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  opacity: 0.9;
+.btn-small {
+  padding: 8px 12px;
+  box-shadow: none;
 }
 
-.theme-toggle:active {
-  transform: translateY(0);
+.btn-primary {
+  background: var(--color-primary);
+  color: #fff;
+}
+.btn-primary:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(25,118,210,0.25);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.btn-secondary {
+  background: var(--color-secondary);
+  color: #fff;
+}
+.btn-secondary:hover {
+  opacity: 0.95;
+}
+
+.btn-accent {
+  background: var(--color-accent);
+  color: #2d2d2d;
+}
+.btn-accent:hover {
+  opacity: 0.95;
+}
+
+/* Filters */
+.filters {
+  display: flex;
+  gap: var(--space-2);
+  margin: var(--space-2) 0 var(--space-4);
+  flex-wrap: wrap;
+}
+
+.filter-tab {
+  background: #f0f4f8;
+  color: #435a6a;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition), border-color var(--transition), transform var(--transition);
+}
+.filter-tab:hover {
+  transform: translateY(-1px);
+}
+.filter-tab.active {
+  background: #e8f2fd;
+  border-color: rgba(25,118,210,0.25);
+  color: var(--color-primary);
+  box-shadow: 0 8px 18px rgba(25,118,210,0.15);
+}
+
+/* List */
+.todo-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.todo-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-2);
+  transition: background var(--transition), box-shadow var(--transition), border-color var(--transition), transform var(--transition);
+  background: #fff;
+}
+.todo-item:hover {
+  border-color: rgba(25,118,210,0.25);
+  box-shadow: 0 8px 20px rgba(25,118,210,0.10);
+  transform: translateY(-1px);
+}
+
+.todo-item.completed .todo-text {
+  text-decoration: line-through;
+  color: var(--text-muted);
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.todo-check {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--color-primary);
+  cursor: pointer;
+}
+
+.todo-text {
+  flex: 1 1 auto;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.edit-input {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  outline: none;
+  font-size: 15px;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+.edit-input:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(255,171,0,0.18);
+}
+
+/* Action buttons */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.icon-btn {
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 8px 10px;
+  cursor: pointer;
+  transition: background var(--transition), transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+.icon-btn:hover {
+  background: #eef7ff;
+  border-color: rgba(25,118,210,0.25);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 18px rgba(25,118,210,0.10);
+}
+.icon-btn.danger:hover {
+  background: #fff2f2;
+  border-color: rgba(225, 29, 72, 0.25);
+  box-shadow: 0 10px 18px rgba(225, 29, 72, 0.12);
+}
+
+/* Empty state */
+.empty-state {
+  padding: 30px 0;
+}
+.empty-card {
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-sm);
+  padding: 28px;
+  text-align: center;
+  color: var(--text-muted);
+}
+.empty-icon {
+  font-size: 26px;
+  margin-bottom: 6px;
+}
+.hint {
+  font-size: 12px;
+  margin-top: 4px;
+  color: var(--text-muted);
+}
+
+/* Footer */
+.footer {
+  display: flex;
+  justify-content: center;
+  padding: 28px 0 36px;
+  color: var(--text-muted);
+}
+.small-muted {
+  font-size: 12px;
+}
+
+/* Responsive */
+@media (max-width: 560px) {
+  .todo-form {
+    grid-template-columns: 1fr;
   }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* Responsive design for mobile */
-@media (max-width: 768px) {
-  .theme-toggle {
-    top: 10px;
-    right: 10px;
-    padding: 8px 16px;
-    font-size: 12px;
+  .btn {
+    width: 100%;
   }
 }
